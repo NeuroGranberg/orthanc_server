@@ -1,0 +1,15 @@
+{
+    "Name": "orthanc-client",
+    "HttpPort": 8043,
+    "DicomAet": "${DICOM_HOST_CLIENT}",
+    "DicomPort" : "${DICOM_PORT}",
+    "RemoteAccessAllowed" : true,
+    "AuthenticationEnabled" : true,
+    "RegisteredUsers" : {
+        "orthanc": "orthanc"
+    },
+    "DicomModalities": {
+        "orthanc-server": ["${DICOM_AET_SERVER}", "${DICOM_HOST_SERVER}", "${DICOM_PORT}"]
+    }
+  }
+  

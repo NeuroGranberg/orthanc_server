@@ -1,0 +1,37 @@
+{
+    "Name": "orthanc-server",
+    "HttpPort": 8042,
+    "DicomAet": "${DICOM_HOST_SERVER}",
+    "DicomPort" : "${DICOM_PORT}",
+    "RemoteAccessAllowed" : true,
+    "StorageCompression": false,
+    "KeepAlive": true,
+    "TcpNoDelay": true,
+    "StorageAccessOnFind": "Never",
+    "SaveJobs": false,
+    "AuthenticationEnabled" : true,
+    "IngestTranscodingOfUncompressed" : false,
+    "IngestTranscodingOfCompressed" : false,
+    "OverwriteInstances": true,
+    "DicomScuTimeout": 120,
+    "DicomScpTimeout": 240,
+    "RegisteredUsers" : {
+      "orthanc": "orthanc"
+    },
+    "PostgreSQL": {
+      "EnableIndex": true,
+      "EnableStorage": false,
+      "IndexConnectionsCount": 2,
+      "Port": 5432,
+      "Host": "orthanc_postgres",
+      "Database": "${POSTGRES_DB}",
+      "Username": "${POSTGRES_USER}",
+      "Password": "${POSTGRES_PASSWORD}",
+      "EnableSsl": false,
+      "Lock": false
+    },
+    "DicomModalities": {
+      "orthanc-client": ["${DICOM_AET_CLIENT}", "${DICOM_HOST_CLIENT}", "${DICOM_PORT}"]
+    }
+  }
+  

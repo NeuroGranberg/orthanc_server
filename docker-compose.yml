@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  orthanc_postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - orthanc_postgres_index:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  orthanc_server:
+    image: orthancteam/orthanc
+    restart: unless-stopped
+    ports:
+      - "8042:8042"
+    volumes:
+      - orthanc_server_data:/var/lib/orthanc/db
+      - ./orthanc_server_config.json:/etc/orthanc/config.json
+    environment:
+      ORTHANC_CONFIGURATION: /etc/orthanc/config.json
+
+  orthanc_client:
+    image: orthancteam/orthanc
+    restart: unless-stopped
+    ports:
+      - "8043:8043"
+    volumes:
+      - orthanc_client_data:/var/lib/orthanc/db
+      - ./orthanc_client_config.json:/etc/orthanc/config.json
+    environment:
+      ORTHANC_CONFIGURATION: /etc/orthanc/config.json
+
+volumes:
+  orthanc_postgres_index:
+  orthanc_server_data:
+  orthanc_client_data:
